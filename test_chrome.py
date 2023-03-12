@@ -32,7 +32,7 @@ def test_lecture_1(load_driver):
     driver.get(ICEBERRY_SITE)
 
     #test that iceberry is a part of the url
-    boolean_assert("icebery" in driver.current_url, f"Expected iceberry in url, got: {driver.current_url}")
+    boolean_assert("iceberry" in driver.current_url, f"Expected iceberry in url, got: {driver.current_url}")
 
     #find the header element on the site by XPATH
     heading = driver.find_element(By.XPATH, "/html/body/div/main/header/div/h1")
