@@ -38,6 +38,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
 
+    - name: Install packages
+      run: |
+        pip install selenium pytest
+
 
     - name: Test with pytest
       run: |
