@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 import pytest
 #import time
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.chrome.options import  Options
 
 
 from helper_tests import simple_assert, boolean_assert
@@ -15,9 +16,11 @@ ICEBERRY_SITE = "https://scar.sandbox.iceberry.se/"
 #setup and teardown
 @pytest.fixture
 def load_driver():
-
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument("--window-size=1920,1080")
     #beta vesion of using selenium manager
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
 
     yield driver
 
