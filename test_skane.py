@@ -16,7 +16,7 @@ from selenium.webdriver.chrome.options import Options
 class Test_Skane():
     def setup_method(self, method):
         options = Options()
-        options.add_argument('--headless')
+        # options.add_argument('--headless') #comment this out to view the tests
         options.add_argument("--window-size=1920,1080")
         self.driver = webdriver.Chrome(options=options)
         self.vars = {}
@@ -34,7 +34,7 @@ class Test_Skane():
         self.driver.find_element(By.CSS_SELECTOR, ".st-main-menu__item:nth-child(1) span").click()
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
             (By.ID, "fromDestinationAutocompleteCombobox"))).click()
-     
+
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
             (By.XPATH, '//*[@id="main-content"]/div[1]/div/div/div[1]/div[1]/div/div'))).click()
 
@@ -95,9 +95,8 @@ class Test_Skane():
         self.driver.find_element(By.CSS_SELECTOR, ".standard-btn").click()
         assert self.driver.find_element(By.CSS_SELECTOR, "h1").text == "Ansökan om ersättning"
 
-    #just checks if map exists, want to check if bus blips exists
+    # just checks if map exists, want to check if bus blips exists
     def test_showbusonmap(self):
-
         self.driver.find_element(By.CSS_SELECTOR, ".quick-link-item:nth-child(3) .page-button-text > span").click()
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.CSS_SELECTOR, ".sc-pbIaG").click()
@@ -110,10 +109,30 @@ class Test_Skane():
                                              "/html/body/div[3]/div[2]/div[2]/section/div/div/div/div[1]/div[2]")
         assert len(elements) > 0
 
-    #could create a login test but i dont want to put my number
-    #kijogin429@asoflex.com
-    #+46731298920
-    #Test1289
+    def test_searchhelp(self):
+        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.CSS_SELECTOR, ".st-main-menu__item:nth-child(4) span").click()
+        element = self.driver.find_element(By.LINK_TEXT, "Kundservice")
+        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.CSS_SELECTOR, ".humany-input").click()
+        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.CSS_SELECTOR, ".humany-input").send_keys("rullstol")
+        self.driver.implicitly_wait(10)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+            (By.PARTIAL_LINK_TEXT, "Vad gäller för resa med rullstol eller rullator"))).click()
 
-    #try danish
-    #try looking at map
+        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.LINK_TEXT, "Buss").click()
+        self.driver.implicitly_wait(10)
+        self.driver.find_element(By.CSS_SELECTOR, ".sc-bdVaJa:nth-child(2)").click()
+        assert self.driver.find_element(By.XPATH,
+                                    '/html/body/div[3]/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div[1]/div['
+                                    '1]/h1').text == "Vad gäller för resa med rullstol eller rullator?"
+
+
+    # could create a login test but i dont want to put my number
+    # kijogin429@asoflex.com
+    # +46731298920
+    # Test1289
+
+    # try danish
