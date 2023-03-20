@@ -10,14 +10,18 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.chrome.options import Options
 
 
 class Test_Skane():
     def setup_method(self, method):
+        options = Options()
+        options.add_argument('--headless')
         self.driver = webdriver.Chrome()
         self.vars = {}
         self.driver.get("https://www.skanetrafiken.se/")
         self.driver.set_window_size(1900, 1020)
+
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((
             By.XPATH, '//*[@id="CybotCookiebotDialogBodyButtonAccept"]'))).click()  # find the path for the cookies
 
@@ -81,6 +85,7 @@ class Test_Skane():
                                         "//*[@id=\"buynsend\"]/div[1]/div/div[9]/div/div[2]/span").text == "62.00 kr"
 
     def test_compensation(self):
+        self.driver.implicitly_wait(10)
         self.driver.find_element(By.CSS_SELECTOR, ".st-main-menu__item:nth-child(4) span").click()
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.CSS_SELECTOR,
