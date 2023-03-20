@@ -16,7 +16,7 @@ from selenium.webdriver.chrome.options import Options
 class Test_Skane():
     def setup_method(self, method):
         options = Options()
-        # options.add_argument('--headless') #comment this out to view the tests
+        options.add_argument('--headless') #comment this out to view the tests
         options.add_argument("--window-size=1920,1080")
         self.driver = webdriver.Chrome(options=options)
         self.vars = {}
