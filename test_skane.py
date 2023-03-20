@@ -17,7 +17,8 @@ class Test_Skane():
     def setup_method(self, method):
         options = Options()
         options.add_argument('--headless')
-        self.driver = webdriver.Chrome()
+        options.add_argument("--window-size=1920,1080")
+        self.driver = webdriver.Chrome(options=options)
         self.vars = {}
         self.driver.get("https://www.skanetrafiken.se/")
         self.driver.set_window_size(1900, 1020)
