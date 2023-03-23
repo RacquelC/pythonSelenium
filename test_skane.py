@@ -29,6 +29,7 @@ class Test_Skane():
     def teardown_method(self, method):
         self.driver.quit()
 
+    #checks that first search result is lund -> malmö
     def test_searchtrip(self):
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.CSS_SELECTOR, ".st-main-menu__item:nth-child(1) span").click()
@@ -58,6 +59,7 @@ class Test_Skane():
         assert self.driver.find_element(By.XPATH,
                                         "//*[@id=\"main-content\"]/div[2]/div/div/div/div[1]/div[2]/div[1]/div/div/div[2]/div").text == "Lund C\nMalmö C"
 
+    #checks if price is same as expected
     def test_selectticket(self):
         self.driver.find_element(By.CSS_SELECTOR, ".quick-link-item:nth-child(1) .page-button-text > span").click()
 
@@ -85,6 +87,7 @@ class Test_Skane():
         assert self.driver.find_element(By.XPATH,
                                         "//*[@id=\"buynsend\"]/div[1]/div/div[9]/div/div[2]/span").text == "62.00 kr"
 
+    #checks thjat you end up on ansökan för ersättning page
     def test_compensation(self):
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.CSS_SELECTOR, ".st-main-menu__item:nth-child(4) span").click()
@@ -109,6 +112,7 @@ class Test_Skane():
                                              "/html/body/div[3]/div[2]/div[2]/section/div/div/div/div[1]/div[2]")
         assert len(elements) > 0
 
+    #checks so you land on the page for wheelchairs
     def test_searchhelp(self):
         self.driver.implicitly_wait(10)
         self.driver.find_element(By.CSS_SELECTOR, ".st-main-menu__item:nth-child(4) span").click()
